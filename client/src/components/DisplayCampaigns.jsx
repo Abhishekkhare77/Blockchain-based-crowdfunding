@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import FundCard from './FundCard';
 import { loader } from '../assets';
 
-const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
+const DisplayCampaigns = ({theme, title, isLoading, campaigns }) => {
   const navigate = useNavigate();
 
   const handleNavigate = (campaign) => {
@@ -13,7 +13,7 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
   
   return (
     <div>
-      <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">{title} ({campaigns.length})</h1>
+      <h1 className={`font-epilogue font-semibold text-[18px] ${theme==="dark"?"text-white":"text-gray-900"} text-left`}>{title} ({campaigns.length})</h1>
 
       <div className="flex flex-wrap mt-[20px] gap-[26px]">
         {isLoading && (
@@ -27,6 +27,7 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
         )}
 
         {!isLoading && campaigns.length > 0 && campaigns.map((campaign) => <FundCard 
+          theme={theme}
           key={uuidv4()}
           {...campaign}
           handleClick={() => handleNavigate(campaign)}
